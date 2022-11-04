@@ -4,16 +4,22 @@ import styled from 'styled-components';
 export const NavStyled = styled.ul`
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
 `;
 
 export const LinkNav = styled(NavLink)`
+  padding: 4px 8px;
+
   font-size: 22px;
-  transition: border-bottom 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1.25;
+
+  border-radius: 6px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover:not(:active),
   &:focus-visible:not(:active) {
-    border-bottom: 1px solid #2a2a2a;
+    background: rgba(177, 186, 196, 0.12);
   }
 
   &.active {

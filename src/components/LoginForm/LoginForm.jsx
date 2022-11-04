@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { VscPass } from 'react-icons/vsc';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from 'redux/auth/authOperations';
-import { Label, Input, Button } from './LoginForm.styled';
+import { toast } from 'react-toastify';
+
+import { VscPass } from 'react-icons/vsc';
+import { Title, Label, Input, Button } from './LoginForm.styled';
+import { selectAuthIsLoading } from 'redux/auth/authSelectors';
+import { Loader } from 'components/Loader/Loader';
 // ==============================
 
 export const LoginForm = () => {
@@ -10,6 +15,9 @@ export const LoginForm = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isLoading = useSelector(selectAuthIsLoading);
 
   const userRegisterData = {
     email,
@@ -31,8 +39,17 @@ export const LoginForm = () => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    dispatch(login(userRegisterData));
-    onFormReset();
+    dispatch(login(userRegisterData)).then(response => {
+      if (response.payload === 'Request failed with status code 400') {
+        toast.error('Oops..Wrong email or password!');
+        return;
+      }
+      if (response.payload.token) {
+        toast.success('You are successfully log in!');
+        navigate('/', { replace: true });
+        onFormReset();
+      }
+    });
   };
 
   const onFormReset = () => {
@@ -42,6 +59,7 @@ export const LoginForm = () => {
 
   return (
     <>
+      <Title>Log in</Title>
       <form onSubmit={onFormSubmit}>
         <Label>
           Email
@@ -70,6 +88,7 @@ export const LoginForm = () => {
           Log in <VscPass />
         </Button>
       </form>
+      {isLoading && <Loader />}
     </>
   );
 };

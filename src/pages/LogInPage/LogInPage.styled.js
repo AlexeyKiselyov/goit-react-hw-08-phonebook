@@ -1,0 +1,19 @@
+import styled from 'styled-components';
+
+export const LoginPageMain = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 650px;
+
+  background:#ecf1f3;
+  margin-top: 32px;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right:auto;
+  padding:32px 32px;
+
+  border:2px solid grey;
+  border-radius:6px;
+`;

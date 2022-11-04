@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import { VscPass } from 'react-icons/vsc';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
-import { Label, Input, Button } from './RegistrationForm.styled';
+
+import { toast } from 'react-toastify';
+
+import { Title, Label, Input, Button } from './RegistrationForm.styled';
+import { useNavigate } from 'react-router-dom';
+import { Loader } from 'components/Loader/Loader';
+import { selectAuthIsLoading } from 'redux/auth/authSelectors';
 // ==============================
 
 export const RegistrationForm = () => {
@@ -11,6 +17,9 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isLoading = useSelector(selectAuthIsLoading);
 
   const userRegisterData = {
     name,
@@ -36,8 +45,18 @@ export const RegistrationForm = () => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    dispatch(register(userRegisterData))
-    onFormReset();
+    dispatch(register(userRegisterData)).then(response => {
+      if (response.payload === 'Request failed with status code 400') {
+        toast.error('Oops...User with such data already exists!');
+        return;
+      }
+      if (response.payload.token) {
+        toast.success('You are successfully sign up!');
+        navigate('/', { replace: true });
+        onFormReset();
+      }
+    });
+    
   };
 
   const onFormReset = () => {
@@ -48,6 +67,7 @@ export const RegistrationForm = () => {
 
   return (
     <>
+      <Title>Registration form</Title>
       <form onSubmit={onFormSubmit}>
         <Label>
           Name
@@ -87,6 +107,7 @@ export const RegistrationForm = () => {
           Register <VscPass />
         </Button>
       </form>
+      {isLoading&&<Loader/>}
     </>
   );
 };

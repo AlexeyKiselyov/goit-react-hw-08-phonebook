@@ -1,32 +1,25 @@
-import { Section } from '../../components/Section/Section';
+import { selectAuthToken, selectAuthUser } from 'redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import { Box } from '../../components/Box';
-import { RegistrationForm } from '../../components/RegistrationForm/RegistrationForm';
-import { LoginForm } from '../../components/LoginForm/LoginForm';
+import { HomePageMain, HomePageTitle, HomePageInfo } from './HomePage.styled';
 // ==============================
 
 export const HomePage = () => {
+  const token = useSelector(selectAuthToken);
+  const {name} = useSelector(selectAuthUser);
   return (
-    <Box
-      bg="background"
-      my={6}
-      mx="auto"
-      py={5}
-      px={6}
-      maxWidth="500px"
-      borderRadius="normal"
-      border="normal"
-    >
-      <Section title="Registration form">
-        <RegistrationForm />
-      </Section>
-      <Section title="Log in">
-        <LoginForm />
-      </Section>
-      <ToastContainer autoClose={2000} />
-    </Box>
+    <HomePageMain>
+      {token ? (
+        <>
+          <HomePageTitle> Welcome, {name}! </HomePageTitle>
+          <HomePageInfo>Your phonebook wait for you!" </HomePageInfo>
+        </>
+      ) : (
+        <>
+          <HomePageTitle> Welcome to Phonebook App! </HomePageTitle>
+          <HomePageInfo>Please, "Sign up" or "Log in" </HomePageInfo>
+        </>
+      )}
+    </HomePageMain>
   );
 };

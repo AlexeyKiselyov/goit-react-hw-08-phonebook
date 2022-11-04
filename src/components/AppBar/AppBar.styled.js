@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export const RegisterPageMain = styled.main`
+export const AppBarHeader = styled.header`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   max-width: 650px;
 
@@ -12,7 +11,7 @@ export const RegisterPageMain = styled.main`
   margin-bottom: 0;
   margin-left: auto;
   margin-right:auto;
-  padding:32px 32px;
+  padding:16px 32px;
 
   border:2px solid grey;
   border-radius:6px;

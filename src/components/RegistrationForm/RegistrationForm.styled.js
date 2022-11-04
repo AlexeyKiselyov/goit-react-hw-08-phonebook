@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 // ===========================
+
+export const Title = styled.h2`
+  margin-bottom: ${p => p.theme.space[6]}px;
+
+  font-weight: ${p => p.theme.fontWeights.medium};
+  font-size: ${p => p.theme.fontSizes.l}px;
+  line-height: ${p => p.theme.lineHeights.body};
+`;
+
 export const Label = styled.label`
   display: block;
   margin-bottom: ${p => p.theme.space[4]}px;
@@ -30,13 +39,15 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  margin-top: ${p => p.theme.space[5]}px;
+  margin-top: ${p => p.theme.space[6]}px;
   margin-bottom: ${p => p.theme.space[5]}px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: ${p => p.theme.space[5]}px;
   padding-right: ${p => p.theme.space[5]}px;
-  min-width: 130px;
+  min-width: 100px;
   height: 35px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: ${p => p.theme.space[5]}px;
 
@@ -51,7 +62,8 @@ export const Button = styled.button`
 
   border-radius: ${p => p.theme.radii.normal};
   border-color: transparent;
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: 2px solid transparent;
   border: 2px solid transparent;
 

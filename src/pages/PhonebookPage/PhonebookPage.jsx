@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { Phonebook } from '../../components/Phonebook/Phonebook';
 import { ContactList } from '../../components/ContactList/ContactList';
 import { Filter } from '../../components/Filter/Filter';
@@ -16,12 +15,11 @@ import {
   fetchContacts,
 } from 'redux/contacts/contactsOperations';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from 'react-toastify';
 import { Box } from '../../components/Box';
 import { useEffect } from 'react';
 import { Loader } from '../../components/Loader/Loader';
+
 // ==============================
 
 export const PhonebookPage = () => {
@@ -31,14 +29,17 @@ export const PhonebookPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    console.log('phonebook');
+    setTimeout(() => {
+      dispatch(fetchContacts());
+    }, 50);
+  }, []);
 
   const onAddContact = newUser => {
     const uniqUserSearch = contacts.find(({ name }) => name === newUser.name);
     uniqUserSearch
-      ? alert(`${uniqUserSearch.name} is already in contacts`)
-      : dispatch(addContacts({ ...newUser, id: nanoid() }));
+      ? toast.info(`"${uniqUserSearch.name}" is already in contacts`)
+      : dispatch(addContacts(newUser));
   };
 
   const onDeleteContact = e => {
@@ -51,12 +52,13 @@ export const PhonebookPage = () => {
   };
   return (
     <Box
+      as={'main'}
       bg="background"
       my={6}
       mx="auto"
       py={5}
       px={6}
-      maxWidth="500px"
+      maxWidth="650px"
       borderRadius="normal"
       border="normal"
     >
@@ -69,7 +71,6 @@ export const PhonebookPage = () => {
         <ContactList onDeleteContact={onDeleteContact} />
       </Section>
       {isLoading && <Loader />}
-      <ToastContainer autoClose={2000} />
     </Box>
   );
 };

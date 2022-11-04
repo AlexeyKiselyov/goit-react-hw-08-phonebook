@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { toast } from 'react-toastify';
 // =========================================
 
 const token = {
@@ -38,7 +40,7 @@ export const login = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      return rejectWithValue(error.massege);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -50,6 +52,7 @@ export const logout = createAsyncThunk(
       await axios.post('https://connections-api.herokuapp.com/users/logout');
       token.unset();
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
