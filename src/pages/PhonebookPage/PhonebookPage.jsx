@@ -33,7 +33,7 @@ export const PhonebookPage = () => {
     setTimeout(() => {
       dispatch(fetchContacts());
     }, 50);
-  }, []);
+  }, [dispatch]);
 
   const onAddContact = newUser => {
     const uniqUserSearch = contacts.find(({ name }) => name === newUser.name);
