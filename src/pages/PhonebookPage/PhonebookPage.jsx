@@ -12,12 +12,10 @@ import { updateFilter } from 'redux/filter/filterSlice';
 import {
   addContacts,
   deleteContacts,
-  fetchContacts,
 } from 'redux/contacts/contactsOperations';
 
 import { toast } from 'react-toastify';
 import { Box } from '../../components/Box';
-import { useEffect } from 'react';
 import { Loader } from '../../components/Loader/Loader';
 
 // ==============================
@@ -27,13 +25,6 @@ export const PhonebookPage = () => {
   const isLoading = useSelector(selectIsLoading);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log('phonebook');
-    setTimeout(() => {
-      dispatch(fetchContacts());
-    }, 50);
-  }, [dispatch]);
 
   const onAddContact = newUser => {
     const uniqUserSearch = contacts.find(({ name }) => name === newUser.name);

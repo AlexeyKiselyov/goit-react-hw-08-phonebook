@@ -7,11 +7,16 @@ import { LogInPage } from 'pages/LogInPage/LogInPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { selectAuthIsRefreshingCurrentUser } from 'redux/auth/authSelectors';
+import {
+  selectAuthIsRefreshingCurrentUser,
+  selectAuthToken,
+} from 'redux/auth/authSelectors';
 import { refreshCurrentUser } from 'redux/auth/authOperations';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 export const App = () => {
   const dispatch = useDispatch();
+  const token = useSelector(selectAuthToken);
   const isRefreshingCurrentUser = useSelector(
     selectAuthIsRefreshingCurrentUser
   );
@@ -19,6 +24,11 @@ export const App = () => {
   useEffect(() => {
     dispatch(refreshCurrentUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('phonebook');
+    if (token) dispatch(fetchContacts());
+  }, [dispatch, token]);
 
   return (
     <>
