@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 // =========================
 export const Label = styled.label`
-  display: block;  
-  margin-bottom: 10px;
-
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 1.88;
-  letter-spacing: 0.06em;
+  display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
 `
 
 export const Input = styled.input`

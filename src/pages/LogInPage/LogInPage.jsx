@@ -8,3 +8,5 @@ export const LogInPage = () => {
     </LoginPageMain>
   );
 };
+
+export default LogInPage;

@@ -1,18 +1,24 @@
-import { Route, Routes } from 'react-router-dom';
-import { Layout } from './Layout/Layout';
-import { HomePage } from 'pages/HomePage/HomePage';
-import { PhonebookPage } from 'pages/PhonebookPage/PhonebookPage';
-import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
-import { LogInPage } from 'pages/LogInPage/LogInPage';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
+
+import { Layout } from './Layout/Layout';
 
 import {
   selectAuthIsRefreshingCurrentUser,
   selectAuthToken,
 } from 'redux/auth/authSelectors';
 import { refreshCurrentUser } from 'redux/auth/authOperations';
+
 import { fetchContacts } from 'redux/contacts/contactsOperations';
+import { PublicRoute } from 'HOCs/PublicRoute';
+import { PrivateRoute } from 'HOCs/PrivateRoute';
+
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
+const PhonebookPage = lazy(() => import('pages/PhonebookPage/PhonebookPage'));
+const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'));
+const LogInPage = lazy(() => import('pages/LogInPage/LogInPage'));
+//============================================================
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -26,7 +32,6 @@ export const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('phonebook');
     if (token) dispatch(fetchContacts());
   }, [dispatch, token]);
 
@@ -35,10 +40,39 @@ export const App = () => {
       {!isRefreshingCurrentUser && (
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="phonebook" element={<PhonebookPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="logIn" element={<LogInPage />} />
+            <Route
+              index
+              element={
+                <PublicRoute>
+                  <HomePage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="phonebook"
+              element={
+                <PrivateRoute>
+                  <PhonebookPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute restricted>
+                  <RegisterPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute restricted>
+                  <LogInPage />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
       )}

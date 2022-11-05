@@ -5,7 +5,7 @@ export const HomePageMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 650px;
+  max-width: 900px;
   max-height: 100vh;
 
   background: #ecf1f3;

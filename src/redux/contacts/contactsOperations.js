@@ -9,8 +9,7 @@ export const fetchContacts = createAsyncThunk(
 
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios('https://connections-api.herokuapp.com/contacts');
-      console.log(data);
+      const { data } = await axios('/contacts');
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -24,7 +23,7 @@ export const addContacts = createAsyncThunk(
 
   async (newContact, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('https://connections-api.herokuapp.com/contacts', newContact);
+      const { data } = await axios.post('/contacts', newContact);
       toast.success('Contact successfully added!');
       return data;
     } catch (error) {
@@ -39,7 +38,7 @@ export const deleteContacts = createAsyncThunk(
 
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`https://connections-api.herokuapp.com/contacts/${id}`);
+      await axios.delete(`/contacts/${id}`);
       toast.success('Contact successfully deleted!');
       return id;
     } catch (error) {

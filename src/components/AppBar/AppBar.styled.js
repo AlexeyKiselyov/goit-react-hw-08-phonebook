@@ -4,7 +4,7 @@ export const AppBarHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 650px;
+  max-width: 900px;
 
   background:#ecf1f3;
   margin-top: 32px;

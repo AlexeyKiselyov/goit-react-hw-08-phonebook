@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { HomePageMain, HomePageTitle, HomePageInfo } from './HomePage.styled';
 // ==============================
 
-export const HomePage = () => {
+const HomePage = () => {
   const token = useSelector(selectAuthToken);
-  const {name} = useSelector(selectAuthUser);
+  const { name } = useSelector(selectAuthUser);
   return (
     <HomePageMain>
       {token ? (
@@ -23,3 +23,5 @@ export const HomePage = () => {
     </HomePageMain>
   );
 };
+
+export default HomePage;

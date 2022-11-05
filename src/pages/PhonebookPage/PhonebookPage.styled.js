@@ -1,0 +1,19 @@
+import styled from 'styled-components';
+
+export const PhonebookMain = styled.main`
+  display: flex;
+  flex-wrap: wrap;
+  gap:20px;
+  
+  max-width: 900px;
+
+  background:#ecf1f3;
+  margin-top: 32px;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right:auto;
+  padding:26px 32px;
+
+  border:2px solid grey;
+  border-radius:6px;
+`;

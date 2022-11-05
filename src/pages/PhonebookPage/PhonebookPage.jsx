@@ -9,18 +9,15 @@ import {
   selectIsLoading,
 } from 'redux/contacts/contactsSelectors';
 import { updateFilter } from 'redux/filter/filterSlice';
-import {
-  addContacts,
-  deleteContacts,
-} from 'redux/contacts/contactsOperations';
+import { addContacts, deleteContacts } from 'redux/contacts/contactsOperations';
 
 import { toast } from 'react-toastify';
-import { Box } from '../../components/Box';
 import { Loader } from '../../components/Loader/Loader';
+import { PhonebookMain } from './PhonebookPage.styled';
 
 // ==============================
 
-export const PhonebookPage = () => {
+const PhonebookPage = () => {
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
 
@@ -42,17 +39,7 @@ export const PhonebookPage = () => {
     dispatch(updateFilter(e.target.value));
   };
   return (
-    <Box
-      as={'main'}
-      bg="background"
-      my={6}
-      mx="auto"
-      py={5}
-      px={6}
-      maxWidth="650px"
-      borderRadius="normal"
-      border="normal"
-    >
+    <PhonebookMain>
       <Section title="Phonebook">
         <Phonebook onAddContact={onAddContact} />
       </Section>
@@ -62,6 +49,8 @@ export const PhonebookPage = () => {
         <ContactList onDeleteContact={onDeleteContact} />
       </Section>
       {isLoading && <Loader />}
-    </Box>
+    </PhonebookMain>
   );
 };
+
+export default PhonebookPage;

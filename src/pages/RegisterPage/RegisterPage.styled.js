@@ -5,7 +5,7 @@ export const RegisterPageMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 650px;
+  max-width: 900px;
 
   background:#ecf1f3;
   margin-top: 32px;

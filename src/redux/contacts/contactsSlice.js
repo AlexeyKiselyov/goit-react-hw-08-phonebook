@@ -42,7 +42,7 @@ const contactsSlice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
-  },
+  },  
 });
 
 export default contactsSlice.reducer;

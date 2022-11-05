@@ -14,7 +14,7 @@ export const AuthNav = () => {
             </LinkStyled>
           </li>
           <li>
-            <LinkStyled to="logIn">Log in<HiOutlineLogin/></LinkStyled>
+            <LinkStyled to="login">Log in<HiOutlineLogin/></LinkStyled>
           </li>
         </AuthStyled>
       </Box>
