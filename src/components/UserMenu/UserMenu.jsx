@@ -1,14 +1,19 @@
 import { HiOutlineLogout } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { logout } from 'redux/auth/authOperations';
 import { selectAuthUser } from 'redux/auth/authSelectors';
 
+import { useMedia } from 'react-use';
+
 import { toast } from 'react-toastify';
+import { FcReading } from 'react-icons/fc';
 import { UserMenuWrapper, Hello, LogoutBtn } from './UserMenu.styled';
 // ===========================================
 
 export const UserMenu = () => {
+  const isMobile = useMedia('(max-width: 768px)');
   const { name } = useSelector(selectAuthUser);
 
   const dispatch = useDispatch();
@@ -29,7 +34,12 @@ export const UserMenu = () => {
 
   return (
     <UserMenuWrapper>
-      <Hello>Hello, {name}!</Hello>
+      {!isMobile && (
+        <Hello>
+          <FcReading size={25} style={{ marginRight: '10px' }} /> Hello, {name}!
+        </Hello>
+      )}
+
       <LogoutBtn onClick={onLogout} type="button">
         Logout
         <HiOutlineLogout />

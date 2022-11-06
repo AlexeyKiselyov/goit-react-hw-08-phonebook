@@ -47,3 +47,18 @@ export const deleteContacts = createAsyncThunk(
     }
   }
 );
+
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+
+  async ({id,name,number}, { rejectWithValue }) => {
+    try {
+      await axios.patch(`/contacts/${id}`,{name,number});
+      toast.success('Contact successfully updated!');
+      return {id,name,number};
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);

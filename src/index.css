@@ -7,6 +7,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url('./images/phonebookBackground.jpg') ;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  background-repeat: no-repeat;
+  background-size:cover;  
 }
 
 code {

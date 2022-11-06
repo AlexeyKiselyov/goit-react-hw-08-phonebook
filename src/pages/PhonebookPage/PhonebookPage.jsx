@@ -1,20 +1,20 @@
-import { Phonebook } from '../../components/Phonebook/Phonebook';
-import { ContactList } from '../../components/ContactList/ContactList';
-import { Filter } from '../../components/Filter/Filter';
-import { Section } from '../../components/Section/Section';
-
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   selectContacts,
   selectIsLoading,
 } from 'redux/contacts/contactsSelectors';
 import { updateFilter } from 'redux/filter/filterSlice';
-import { addContacts, deleteContacts } from 'redux/contacts/contactsOperations';
+import { addContacts } from 'redux/contacts/contactsOperations';
+
+import { Phonebook } from '../../components/Phonebook/Phonebook';
+import { ContactList } from '../../components/ContactList/ContactList';
+import { Filter } from '../../components/Filter/Filter';
+import { Section } from '../../components/Section/Section';
+import { Loader } from '../../components/Loader/Loader';
 
 import { toast } from 'react-toastify';
-import { Loader } from '../../components/Loader/Loader';
 import { PhonebookMain } from './PhonebookPage.styled';
-
 // ==============================
 
 const PhonebookPage = () => {
@@ -30,11 +30,6 @@ const PhonebookPage = () => {
       : dispatch(addContacts(newUser));
   };
 
-  const onDeleteContact = e => {
-    const deleteById = e.target.closest('li[data-id]').dataset.id;
-    dispatch(deleteContacts(deleteById));
-  };
-
   const onChangeFilter = e => {
     dispatch(updateFilter(e.target.value));
   };
@@ -46,7 +41,7 @@ const PhonebookPage = () => {
 
       <Section title="Contacts">
         <Filter onChangeFilter={onChangeFilter} />
-        <ContactList onDeleteContact={onDeleteContact} />
+        <ContactList />
       </Section>
       {isLoading && <Loader />}
     </PhonebookMain>

@@ -1,43 +1,59 @@
 import { useState } from 'react';
-import { VscAdd } from 'react-icons/vsc';
-import { Label, Input, Button } from './Phonebook.styled';
+import { PropTypes } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { selectContacts } from 'redux/contacts/contactsSelectors';
+
+import { VscCheck } from 'react-icons/vsc';
+import { Label, Input, Button } from './ContactDataUpdateForm.styled';
+import { updateContact } from 'redux/contacts/contactsOperations';
 // ==============================
 
-export const Phonebook = ({ onAddContact }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+export const ContactDataUpdateForm = ({ onCloseModal, updateContactId }) => {
+  const contacts = useSelector(selectContacts);
+  const dispatsh = useDispatch();
+  const userToUpdateArr = contacts.filter(
+    contact => contact.id === updateContactId
+  );
+  const { id, name: userName, number: userNumber } = userToUpdateArr[0];
 
-  const state = {
+  const [name, setName] = useState(userName);
+  const [number, setNumber] = useState(userNumber);
+
+  const stateData = {
+    id,
     name,
     number,
   };
 
   const onInputChange = ({ target: { name: inputName, value } }) => {
     switch (inputName) {
-      case "name":
+      case 'name':
         setName(value);
         break;
-      case "number":
+      case 'number':
         setNumber(value);
         break;
       default:
         return null;
-    }   
+    }
   };
 
   const onFormSubmitAddContact = e => {
     e.preventDefault();
-    onAddContact(state);
+    dispatsh(updateContact(stateData));
+    onCloseModal();
     onFormReset();
   };
 
   const onFormReset = () => {
-    setName("");
-    setNumber("");   
+    setName('');
+    setNumber('');
   };
 
   return (
     <>
+      <h2>Update contact</h2>
       <form onSubmit={onFormSubmitAddContact}>
         <Label>
           Name
@@ -45,7 +61,7 @@ export const Phonebook = ({ onAddContact }) => {
             onChange={onInputChange}
             type="text"
             name="name"
-            value={name}            
+            value={name}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]{4,8}*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -64,10 +80,15 @@ export const Phonebook = ({ onAddContact }) => {
             placeholder="099-999-99-99"
           />
         </Label>
-        <Button type="submit">
-          Add contact <VscAdd />
+        <Button>
+          Submit changes <VscCheck />
         </Button>
       </form>
     </>
   );
+};
+
+ContactDataUpdateForm.propTypes = {
+  updateContactId: PropTypes.string.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
 };

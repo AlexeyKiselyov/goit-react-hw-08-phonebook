@@ -32,13 +32,13 @@ export const Input = styled.input`
 export const Button = styled.button`
   margin-top: ${p => p.theme.space[6]}px;
   margin-bottom: ${p => p.theme.space[5]}px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left:auto;
+  margin-right:auto;
   padding-left: ${p => p.theme.space[5]}px;
   padding-right: ${p => p.theme.space[5]}px;
   min-width: 150px;
   height: 35px;
-  display:flex;
+  display: flex;
   align-items: center;
   gap: ${p => p.theme.space[5]}px;
 

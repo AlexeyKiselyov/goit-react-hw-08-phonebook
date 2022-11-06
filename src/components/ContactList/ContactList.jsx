@@ -1,18 +1,39 @@
-import PropTypes from 'prop-types';
-import { VscTrash, VscAccount } from 'react-icons/vsc';
+import { VscTrash, VscEdit } from 'react-icons/vsc';
+import Avatar from 'react-avatar';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContacts,
   selectFilterContacts,
 } from 'redux/contacts/contactsSelectors';
 
-import { Contact, Ul, Button } from './ContactList.styled';
+import { Contact, Ul, BtnWrapper, Button } from './ContactList.styled';
+import { useState } from 'react';
+import { deleteContacts } from 'redux/contacts/contactsOperations';
+import { Modal } from 'components/Modal/Modal';
 // ===========================
 
-export const ContactList = ({ onDeleteContact }) => {
+export const ContactList = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateContactId, setUpdateContactId] = useState(null);
+
+  const dispatch = useDispatch();
+
   const contacts = useSelector(selectContacts);
   const filterContacts = useSelector(selectFilterContacts);
+
+  const onDeleteContact = id => {
+    dispatch(deleteContacts(id));
+  };
+
+  const onModalOpen = id => {
+    setIsModalOpen(true);
+    setUpdateContactId(id);
+  };
+
+  const onCloseModal =()=>{
+    setIsModalOpen(false);
+  }
 
   return (
     <>
@@ -21,28 +42,43 @@ export const ContactList = ({ onDeleteContact }) => {
         <Ul>
           {filterContacts.map(({ name, number, id }) => (
             <Contact key={id} data-id={id}>
-              <VscAccount size="15" />
-              <p>
-                {name}: {number}
-              </p>
-              <Button
-                type="button"
-                name="deleteBtn"
-                onClick={e => onDeleteContact(e)}
-              >
-                Delete
-                <VscTrash />
-              </Button>
+              <Avatar
+                round={true}
+                size={40}
+                name={name}
+                alt={'avatar'}
+                color={'#2196f3'}
+              />
+              <div>
+                <p>
+                  {name}: {number}
+                </p>
+              </div>
+              <BtnWrapper>
+                <Button
+                  type="button"
+                  name="updateBtn"
+                  onClick={() => onModalOpen(id)}
+                >
+                  <VscEdit />
+                </Button>
+                <Button
+                  type="button"
+                  name="deleteBtn"
+                  onClick={() => onDeleteContact(id)}
+                >
+                  <VscTrash />
+                </Button>
+              </BtnWrapper>
             </Contact>
           ))}
         </Ul>
-      ) : contacts.length>0&&(
-        <p>Nothing was found...</p>
+      ) : (
+        contacts.length > 0 && <p>Nothing was found...</p>
       )}
+      {isModalOpen&&<Modal onCloseModal={onCloseModal} updateContactId={updateContactId}/>}
     </>
   );
 };
 
-ContactList.propTypes = {
-  onDeleteContact: PropTypes.func.isRequired,
-};
+

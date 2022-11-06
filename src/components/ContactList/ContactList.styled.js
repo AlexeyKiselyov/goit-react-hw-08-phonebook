@@ -15,31 +15,42 @@ export const Contact = styled.li`
   display: flex;
   align-items: center;
   gap: 15px;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 
   font-weight: 600;
   font-size: 16px;
   line-height: 1.88;
   letter-spacing: 0.06em;
-  border-bottom:1px solid black;
+  border-bottom: 1px solid black;
 
-  p{
-    max-width: 290px;
+  p {
+    margin-right: 15px;
+    max-width: 350px;
+
+    overflow-x: hidden;
   }
 `;
 
-export const Button = styled.button`
+export const BtnWrapper = styled.div`
+  display: flex;
+  gap: 5px;
   margin-left: auto;
   margin-right: 5px;
+`;
+
+export const Button = styled.button`
+  /* margin-left: auto;
+  margin-right: 5px; */
   padding: 4px 5px;
-  min-width: 80px;
+  min-width: 25px;
   height: 25px;
 
   display: inline-flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 
-  cursor:pointer;
+  cursor: pointer;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.1;

@@ -14,6 +14,8 @@ export const LoginPageMain = styled.main`
   margin-right:auto;
   padding:32px 32px;
 
-  border:2px solid grey;
+  /* border:2px solid grey; */
   border-radius:6px;
+
+  box-shadow: 10px 10px 8px 2px rgba(0, 0, 0, 0.3);
 `;

@@ -13,7 +13,7 @@ export const Layout = () => {
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={2500} position="top-center"/>
     </>
   );
 };
