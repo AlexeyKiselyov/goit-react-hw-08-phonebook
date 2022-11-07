@@ -12,7 +12,6 @@ export const fetchContacts = createAsyncThunk(
       const { data } = await axios('/contacts');
       return data;
     } catch (error) {
-      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
