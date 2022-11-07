@@ -7,6 +7,7 @@ export const AppBarHeader = styled.header`
   max-width: 900px;
 
   background:#ecf1f3;
+  margin-top: 32px;
   margin-bottom: 0;
   margin-left: auto;
   margin-right:auto;
