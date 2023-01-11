@@ -44,6 +44,10 @@ export const LoginForm = () => {
         toast.error('Oops..Wrong email or password!');
         return;
       }
+      if (response.payload === 'Network Error') {
+        toast.error('Oops..Network Error!');
+        return;
+      }
       if (response.payload.token) {
         toast.success('You are successfully log in!');
         navigate('/', { replace: true });

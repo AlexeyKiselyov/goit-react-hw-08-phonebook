@@ -50,13 +50,16 @@ export const RegistrationForm = () => {
         toast.error('Oops...User with such data already exists!');
         return;
       }
+      if (response.payload === 'Network Error') {
+        toast.error('Oops...Network Error!');
+        return;
+      }
       if (response.payload.token) {
         toast.success('You are successfully sign up!');
         navigate('/', { replace: true });
         onFormReset();
       }
     });
-    
   };
 
   const onFormReset = () => {
@@ -107,7 +110,7 @@ export const RegistrationForm = () => {
           Register <VscPass />
         </Button>
       </form>
-      {isLoading&&<Loader/>}
+      {isLoading && <Loader />}
     </>
   );
 };
